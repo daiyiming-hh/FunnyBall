@@ -132,8 +132,8 @@ public class GameView extends SurfaceView implements SurfaceHolder.Callback {
             mMainBallHolder.draw(canvas, getWidth(), getHeight());
             // 绘制边界
             mMainBorderHolder.draw(canvas, getWidth(), getHeight());
-            mHolder.unlockCanvasAndPost(canvas);
         }
+        mHolder.unlockCanvasAndPost(canvas);
     }
 
     /**
