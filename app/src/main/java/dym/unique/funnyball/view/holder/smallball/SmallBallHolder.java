@@ -11,7 +11,7 @@ import dym.unique.funnyball.view.holder.smallball.movepath.BaseMovePath;
 public class SmallBallHolder extends IHolder {
     private Paint mSmallBallPaint = null; // 用于绘制小球的画笔
     private int mDistanceOffset = 0; // 用于限制点击时的距离
-    private BaseMovePath mMovePath = null; // 小球移动的路径
+    private final BaseMovePath mMovePath; // 小球移动的路径
 
     public SmallBallHolder(Context context, BaseMovePath movePath) {
         super(context);
@@ -40,7 +40,7 @@ public class SmallBallHolder extends IHolder {
     }
 
     @Override
-    public void draw(Canvas canvas, int width, int height) {
+    public void draw(Canvas canvas) {
         mMovePath.move();
         mSmallBallPaint.setColor(getColor());
         canvas.drawCircle(getX(), getY(), getRadius(), mSmallBallPaint);

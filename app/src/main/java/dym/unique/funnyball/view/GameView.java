@@ -126,12 +126,12 @@ public class GameView extends SurfaceView implements SurfaceHolder.Callback {
             canvas.drawColor(Color.WHITE);
             // 绘制小球
             for (IHolder holder : mSmallBallHolders) {
-                holder.draw(canvas, getWidth(), getHeight());
+                holder.draw(canvas);
             }
             // 绘制中央主球
-            mMainBallHolder.draw(canvas, getWidth(), getHeight());
+            mMainBallHolder.draw(canvas);
             // 绘制边界
-            mMainBorderHolder.draw(canvas, getWidth(), getHeight());
+            mMainBorderHolder.draw(canvas);
         }
         mHolder.unlockCanvasAndPost(canvas);
     }

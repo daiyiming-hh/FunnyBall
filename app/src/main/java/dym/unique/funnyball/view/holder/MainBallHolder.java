@@ -54,7 +54,7 @@ public class MainBallHolder extends IHolder {
     }
 
     @Override
-    public void draw(Canvas canvas, int width, int height) {
+    public void draw(Canvas canvas) {
         // 绘制球体
         mMainBallPaint.setColor(getColor());
         if (mPrevRadius < getRadius()) {
@@ -62,6 +62,7 @@ public class MainBallHolder extends IHolder {
         } else {
             mPrevRadius = getRadius();
         }
+        int width = canvas.getWidth(), height = canvas.getHeight();
         canvas.drawCircle(mX = width / 2, mY = height / 2, mPrevRadius, mMainBallPaint);
         // 绘制文字,并要求文字宽度小于最小圆的半径
         String text = String.valueOf(mGameScore);

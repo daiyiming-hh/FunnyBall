@@ -29,13 +29,14 @@ public abstract class IHolder {
 
     /**
      * 获取Scale数目
+     *
      * @return Scale数目
      */
     protected abstract float getScaleNum();
 
     protected int getColor() {
         if (GAME_COLOR.length - sLifeCount >= 0 && GAME_COLOR.length - sLifeCount < GAME_COLOR.length) {
-            return  GAME_COLOR[GAME_COLOR.length - sLifeCount];
+            return GAME_COLOR[GAME_COLOR.length - sLifeCount];
         }
         return GAME_COLOR[0];
     }
@@ -46,17 +47,16 @@ public abstract class IHolder {
 
     /**
      * 用于绘制的函数
+     *
      * @param canvas 画布
-     * @param width 画布宽度
-     * @param height 画布的高度
      */
-    public abstract void draw(Canvas canvas, int width, int height);
-
+    public abstract void draw(Canvas canvas);
 
     /**
      * 用于子类继承，刷新数据使用
      */
-    public void flush() {}
+    public void flush() {
+    }
 
     public static void reduceLifeCount() {
         if (sLifeCount > 1) {

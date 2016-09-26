@@ -12,7 +12,7 @@ public class MainBorderHolder extends IHolder {
 
     private Paint mMainBorderPaint = null; // 画笔
     private int mMainBorderAlpha = 120; // 边界透明度
-    private boolean isAlphaReduce = false;
+    private boolean mIsAlphaReduce = false;
 
     public MainBorderHolder(Context context, int borderSize) {
         super(context);
@@ -29,22 +29,22 @@ public class MainBorderHolder extends IHolder {
     }
 
     @Override
-    public void draw(Canvas canvas, int width, int height) {
+    public void draw(Canvas canvas) {
         mMainBorderPaint.setColor(getColor());
         if (mMainBorderAlpha < 10) {
-            isAlphaReduce = false;
+            mIsAlphaReduce = false;
         } else if (mMainBorderAlpha > 240) {
-            isAlphaReduce = true;
+            mIsAlphaReduce = true;
         }
-        mMainBorderAlpha = isAlphaReduce ? mMainBorderAlpha - 2 : mMainBorderAlpha + 2;
+        mMainBorderAlpha = mIsAlphaReduce ? mMainBorderAlpha - 2 : mMainBorderAlpha + 2;
         mMainBorderPaint.setAlpha(mMainBorderAlpha);
-        canvas.drawCircle(width / 2, height / 2, getRadius(), mMainBorderPaint);
+        canvas.drawCircle(canvas.getWidth() / 2, canvas.getHeight() / 2, getRadius(), mMainBorderPaint);
     }
 
     @Override
     public void flush() {
         mMainBorderAlpha = 120;
-        isAlphaReduce = false;
+        mIsAlphaReduce = false;
     }
 
 }
