@@ -16,18 +16,17 @@ public class GameSharedPreference {
     private final static String SP_KEY_IS_CAN_PLAY_SOUNDS = "is_can_play_sounds";
 
     private static SharedPreferences mSharedPreferences = null;
-    private static SharedPreferences.Editor mEditor = null;
 
     private GameSharedPreference(){}
 
     public static void init(Context context) {
         mSharedPreferences = context.getSharedPreferences(SP_NAME, Context.MODE_PRIVATE);
-        mEditor = mSharedPreferences.edit();
     }
 
     public static void saveTopScore(String type, int score) {
-        mEditor.putInt(type, score);
-        mEditor.commit();
+        SharedPreferences.Editor editor = mSharedPreferences.edit();
+        editor.putInt(type, score);
+        editor.apply();
     }
 
     public static int getTopScore(String type) {
@@ -35,8 +34,9 @@ public class GameSharedPreference {
     }
 
     public static void saveIsCanPlaySounds(boolean isCanPlaySounds) {
-        mEditor.putBoolean(SP_KEY_IS_CAN_PLAY_SOUNDS, isCanPlaySounds);
-        mEditor.commit();
+        SharedPreferences.Editor editor = mSharedPreferences.edit();
+        editor.putBoolean(SP_KEY_IS_CAN_PLAY_SOUNDS, isCanPlaySounds);
+        editor.apply();
     }
 
     public static boolean getIsCanPlaySounds() {

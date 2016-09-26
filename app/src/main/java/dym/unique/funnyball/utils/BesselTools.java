@@ -3,8 +3,6 @@ package dym.unique.funnyball.utils;
 import java.util.ArrayList;
 import java.util.List;
 
-import android.support.annotation.NonNull;
-
 /**
  * Created by daiyiming on 2016/4/27.
  */
@@ -30,7 +28,7 @@ public class BesselTools {
      * @param points 路径上的点集
      * @param rate 比率
      */
-    public static Point caculatePoint(@NonNull List<Point> points, float rate) {
+    public static Point calculatePoint(List<Point> points, float rate) {
         if (points == null || points.size() == 0) {
             return null;
         }
@@ -49,9 +47,9 @@ public class BesselTools {
             List<Point> params = new ArrayList<>();
             params.add(points.get( i - 1));
             params.add(points.get(i));
-            res.add(caculatePoint(params, rate));
+            res.add(calculatePoint(params, rate));
         }
-        return caculatePoint(res, rate);
+        return calculatePoint(res, rate);
     }
 
 }

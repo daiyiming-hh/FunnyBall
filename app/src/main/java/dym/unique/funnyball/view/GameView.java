@@ -1,10 +1,5 @@
 package dym.unique.funnyball.view;
 
-import java.util.ArrayList;
-import java.util.Iterator;
-import java.util.List;
-import java.util.Random;
-
 import android.content.Context;
 import android.graphics.Canvas;
 import android.graphics.Color;
@@ -14,9 +9,14 @@ import android.util.TypedValue;
 import android.view.MotionEvent;
 import android.view.SurfaceHolder;
 import android.view.SurfaceView;
+
+import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.List;
+import java.util.Random;
+
 import dym.unique.funnyball.enums.GameType;
 import dym.unique.funnyball.meida.SoundsPlayer;
-import dym.unique.funnyball.sharedperference.GameSharedPreference;
 import dym.unique.funnyball.view.holder.IHolder;
 import dym.unique.funnyball.view.holder.MainBallHolder;
 import dym.unique.funnyball.view.holder.MainBorderHolder;
@@ -101,14 +101,12 @@ public class GameView extends SurfaceView implements SurfaceHolder.Callback {
 
     public GameView(Context context, AttributeSet attrs) {
         super(context, attrs);
-        GameSharedPreference.init(context);
-        SoundsPlayer.init(context);
-
         mHolder = this.getHolder();
         mHolder.addCallback(this);
 
         mMainBallHolder = new MainBallHolder(getContext());
-        mMainBorderHolder = new MainBorderHolder(getContext(), (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 2, getResources().getDisplayMetrics()));
+        mMainBorderHolder = new MainBorderHolder(getContext(),
+                (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 2, getResources().getDisplayMetrics()));
     }
 
     @Override

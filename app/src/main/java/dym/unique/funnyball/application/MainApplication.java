@@ -17,7 +17,7 @@ public class MainApplication extends Application {
         SoundsPlayer.init(this);
     }
 
-    public static void onDestory() {
+    public static void onDestroy() {
         SoundsPlayer.release();
     }
 

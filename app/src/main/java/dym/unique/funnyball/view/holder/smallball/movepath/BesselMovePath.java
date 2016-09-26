@@ -24,8 +24,7 @@ public class BesselMovePath extends BaseMovePath {
         // 添加初始点
         mPoints.add(new BesselTools.Point(x, y));
         // 添加控制点
-        BesselTools.Point controlPoint = new BesselTools.Point(aimX, mRandom.nextBoolean() ? 0 : GameView.height());
-        mPoints.add(controlPoint);
+        mPoints.add(new BesselTools.Point(aimX, mRandom.nextBoolean() ? 0 : GameView.height()));
         // 添加结束点
         mPoints.add(new BesselTools.Point(aimX, aimY));
     }
@@ -35,7 +34,7 @@ public class BesselMovePath extends BaseMovePath {
         if (mProgress > MAX_PROGRESS) {
             mProgress = MAX_PROGRESS;
         }
-        BesselTools.Point newPoint = BesselTools.caculatePoint(mPoints, (float) mProgress / MAX_PROGRESS);
+        BesselTools.Point newPoint = BesselTools.calculatePoint(mPoints, (float) mProgress / MAX_PROGRESS);
         mX = newPoint.x;
         mY = newPoint.y;
         mProgress ++;
