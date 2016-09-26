@@ -13,8 +13,8 @@ public class LineMovePath extends BaseMovePath {
     public LineMovePath(float x, float y, float aimX, float aimY) {
         super(x, y, aimX, aimY);
 
-        this.mXStep = (float) ((aimX - x) / DISTANCE_MEAN_NUM);
-        this.mYStep = (float) ((aimY - y) / DISTANCE_MEAN_NUM);
+        this.mXStep = (aimX - x) / DISTANCE_MEAN_NUM;
+        this.mYStep = (aimY - y) / DISTANCE_MEAN_NUM;
     }
 
     @Override

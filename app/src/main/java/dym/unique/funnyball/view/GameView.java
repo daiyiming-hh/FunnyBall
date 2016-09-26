@@ -109,19 +109,15 @@ public class GameView extends SurfaceView implements SurfaceHolder.Callback {
                 (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 2, getResources().getDisplayMetrics()));
     }
 
-    @Override
-    protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
-        super.onMeasure(widthMeasureSpec, heightMeasureSpec);
-        HEIGHT = getMeasuredHeight();
-        WIDTH = getMeasuredWidth();
-    }
-
     /**
      * 用于绘制的函数
      */
     private void draw() {
         Canvas canvas = mHolder.lockCanvas();
         if (canvas != null) {
+            // 配置布局宽高
+            HEIGHT = canvas.getHeight();
+            WIDTH = canvas.getWidth();
             // 绘制背景
             canvas.drawColor(Color.WHITE);
             // 绘制小球
