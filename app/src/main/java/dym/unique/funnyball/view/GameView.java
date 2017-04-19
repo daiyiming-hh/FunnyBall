@@ -7,8 +7,7 @@ import android.os.Handler;
 import android.util.AttributeSet;
 import android.util.TypedValue;
 import android.view.MotionEvent;
-import android.view.SurfaceHolder;
-import android.view.SurfaceView;
+import android.view.View;
 
 import java.util.ArrayList;
 import java.util.Iterator;
@@ -25,14 +24,12 @@ import dym.unique.funnyball.view.holder.smallball.SmallBallHolder;
 /**
  * Created by daiyiming on 2016/4/3.
  */
-public class GameView extends SurfaceView implements SurfaceHolder.Callback {
+public class GameView extends View {
 
     private static int HEIGHT = 0; // 高度
     private static int WIDTH = 0; // 宽度
 
     private final static int PLAY_DURATION = 10; // 播放的时间间隔
-
-    private SurfaceHolder mHolder = null;
 
     private MainBallHolder mMainBallHolder = null; // 主球
     private MainBorderHolder mMainBorderHolder = null; // 边界
@@ -80,7 +77,7 @@ public class GameView extends SurfaceView implements SurfaceHolder.Callback {
                     mCreateSmallBallTime += PLAY_DURATION;
                 } else {
                     int seconds = (int) (mGameTime / 1000);
-                    int createCount = 0;
+                    int createCount;
                     if (seconds < 60) {
                         createCount = seconds / 10 + 1;
                     } else {
@@ -89,7 +86,7 @@ public class GameView extends SurfaceView implements SurfaceHolder.Callback {
                     createSmallBall(createCount);
                     mCreateSmallBallTime = 0;
                 }
-                draw();
+                invalidate();
                 handler.postDelayed(playRunnable, PLAY_DURATION);
             }
         }
@@ -101,35 +98,28 @@ public class GameView extends SurfaceView implements SurfaceHolder.Callback {
 
     public GameView(Context context, AttributeSet attrs) {
         super(context, attrs);
-        mHolder = this.getHolder();
-        mHolder.addCallback(this);
 
         mMainBallHolder = new MainBallHolder(getContext());
         mMainBorderHolder = new MainBorderHolder(getContext(),
                 (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 2, getResources().getDisplayMetrics()));
     }
 
-    /**
-     * 用于绘制的函数
-     */
-    private void draw() {
-        Canvas canvas = mHolder.lockCanvas();
-        if (canvas != null) {
-            // 配置布局宽高
-            HEIGHT = canvas.getHeight();
-            WIDTH = canvas.getWidth();
-            // 绘制背景
-            canvas.drawColor(Color.WHITE);
-            // 绘制小球
-            for (IHolder holder : mSmallBallHolders) {
-                holder.draw(canvas);
-            }
-            // 绘制中央主球
-            mMainBallHolder.draw(canvas);
-            // 绘制边界
-            mMainBorderHolder.draw(canvas);
+    @Override
+    protected void onDraw(Canvas canvas) {
+        super.onDraw(canvas);
+        // 配置布局宽高
+        HEIGHT = canvas.getHeight();
+        WIDTH = canvas.getWidth();
+        // 绘制背景
+        canvas.drawColor(Color.WHITE);
+        // 绘制小球
+        for (IHolder holder : mSmallBallHolders) {
+            holder.draw(canvas);
         }
-        mHolder.unlockCanvasAndPost(canvas);
+        // 绘制中央主球
+        mMainBallHolder.draw(canvas);
+        // 绘制边界
+        mMainBorderHolder.draw(canvas);
     }
 
     /**
@@ -152,12 +142,13 @@ public class GameView extends SurfaceView implements SurfaceHolder.Callback {
         mMainBorderHolder.flush();
         mSmallBallHolders.clear();
         IHolder.flushLifeCount();
-        draw();
+        invalidate();
         handler.removeCallbacksAndMessages(null);
     }
 
     /**
      * 返回游戏类型
+     *
      * @return 游戏类型
      */
     public GameType getGameType() {
@@ -165,13 +156,14 @@ public class GameView extends SurfaceView implements SurfaceHolder.Callback {
     }
 
     private void createSmallBall(int count) {
-        for (int i = 0; i < count; i ++) {
+        for (int i = 0; i < count; i++) {
             mSmallBallHolders.add(new SmallBallHolder(getContext(), mGameType.getMovePath()));
         }
     }
 
     /**
      * 获取游戏界面高度
+     *
      * @return 高度
      */
     public static int height() {
@@ -180,6 +172,7 @@ public class GameView extends SurfaceView implements SurfaceHolder.Callback {
 
     /**
      * 获取游戏界面宽度
+     *
      * @return 宽度
      */
     public static int width() {
@@ -192,12 +185,12 @@ public class GameView extends SurfaceView implements SurfaceHolder.Callback {
             case MotionEvent.ACTION_DOWN: {
                 // 当手指点击时检测是否有小球被点击
                 Iterator<SmallBallHolder> iterator = mSmallBallHolders.iterator();
-                while(iterator.hasNext()) {
+                while (iterator.hasNext()) {
                     SmallBallHolder holder = iterator.next();
                     if (holder.isInner(event.getX(), event.getY())) {
                         iterator.remove();
                         // 更新游戏分数
-                        mGameScore ++;
+                        mGameScore++;
                         mMainBallHolder.setGameScore(mGameScore);
                         // 播放音乐
                         SoundsPlayer.playTouchSound();
@@ -216,19 +209,6 @@ public class GameView extends SurfaceView implements SurfaceHolder.Callback {
 
     public void setOnGameMessageChangeListener(OnGameMessageChangeListener listener) {
         mGameMessageListener = listener;
-    }
-
-    @Override
-    public void surfaceCreated(SurfaceHolder holder) {
-        draw();
-    }
-
-    @Override
-    public void surfaceChanged(SurfaceHolder holder, int format, int width, int height) {
-    }
-
-    @Override
-    public void surfaceDestroyed(SurfaceHolder holder) {
     }
 
     @Override
