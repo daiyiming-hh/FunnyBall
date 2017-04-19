@@ -77,7 +77,6 @@ public class TopScoreTextView extends View {
         // 绘制标志文字
         canvas.drawText(TEXT_END, getWidth() / 2 + mMargin + (mTextScoreRect.width() + mTagEndRect.width()) / 2,
                 baseline, mTagTextPaint);
-
     }
 
 }
