@@ -46,7 +46,6 @@ public class TopScoreTextView extends View {
         mTagTextPaint.getTextBounds(TEXT_END, 0, TEXT_END.length(), mTagEndRect);
 
         mMargin = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 6, context.getResources().getDisplayMetrics());
-
     }
 
     public void setScore(int score) {
