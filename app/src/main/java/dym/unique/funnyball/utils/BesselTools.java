@@ -17,16 +17,15 @@ public class BesselTools {
             this.y = y;
         }
 
-        public void reset(float x, float y) {
-            this.x = x;
-            this.y = y;
-        }
     }
+
+    private BesselTools() {}
 
     /**
      * 计算点
+     *
      * @param points 路径上的点集
-     * @param rate 比率
+     * @param rate   比率
      */
     public static Point calculatePoint(List<Point> points, float rate) {
         if (points == null || points.size() == 0) {
@@ -43,9 +42,9 @@ public class BesselTools {
         }
         // 多维贝塞尔曲线
         List<Point> res = new ArrayList<>();
-        for (int i = 1; i < points.size(); i ++) {
+        for (int i = 1; i < points.size(); i++) {
             List<Point> params = new ArrayList<>();
-            params.add(points.get( i - 1));
+            params.add(points.get(i - 1));
             params.add(points.get(i));
             res.add(calculatePoint(params, rate));
         }
